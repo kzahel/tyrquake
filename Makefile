@@ -158,8 +158,10 @@ GROFF ?= groff
 # Now that defaults are set, if we are using SDL set the CFLAGS/LFLAGS
 ifneq (,$(filter sdl,$(VID_TARGET) $(SND_TARGET) $(IN_TARGET)))
 ifeq (,$(filter-out UNIX,$(TARGET_OS))$(filter-out darwin,$(TARGET_UNIX)))
-SDL_CFLAGS_DEFAULT := -iquote /Library/Frameworks/SDL2.framework/Versions/Current/Headers
-SDL_LFLAGS_DEFAULT := -framework SDL2
+#SDL_CFLAGS_DEFAULT := -iquote /Library/Frameworks/SDL2.framework/Versions/Current/Headers
+#SDL_LFLAGS_DEFAULT := -framework SDL2
+SDL_CFLAGS_DEFAULT := $(shell sdl2-config --cflags)
+SDL_LFLAGS_DEFAULT := $(shell sdl2-config --libs)
 else
 SDL_CFLAGS_DEFAULT := $(shell sdl2-config --cflags)
 SDL_LFLAGS_DEFAULT := $(shell sdl2-config --libs)
